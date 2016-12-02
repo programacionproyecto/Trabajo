@@ -82,17 +82,21 @@ public class Steam {
         plaStm.writeInt(0);
     }
     //DownloadGame
-    public boolean downloadGame(int codeGame,int codePlayer,char SO){
-        long edadMin=searchGame=code
+    public boolean downloadGame(int codeGame,int codePlayer,char SO)throws IOException{
+       
+        
         return false;
     }
     //searchPlayer
-    private long searchPlayer(int code)throws IOException{
+    private int  searchPlayer(int code)throws IOException{
         plaStm.seek(0);
+        Calendar date= Calendar.getInstance();
+        int year=date.get(Calendar.YEAR);
         while(plaStm.getFilePointer()<plaStm.length()){
             int codigo=plaStm.readInt();
             plaStm.readUTF();
-            long edad=plaStm.readLong();
+            date.setTimeInMillis(plaStm.readLong());
+            int edad= year-date.get(Calendar.YEAR);
             plaStm.skipBytes(4);
             if(code== codigo){
                 return edad;
@@ -103,7 +107,7 @@ public class Steam {
                 
     }
     //searchGame
-     private long searchGame(int code)throws IOException{
+     private int searchGame(int code)throws IOException{
         gamStm.seek(0);
         while(gamStm.getFilePointer()<gamStm.length()){
             int codigo=gamStm.readInt();
